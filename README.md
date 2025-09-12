@@ -5,7 +5,7 @@ A local tool to search archived videos & images (e.g., “red car,” “winter 
 ________________________________________
 Project Repository Setup
 
-Repository Platform: Github
+Repository Platform: Github and
 Different branch as needed for different tasks.
 ________________________________________
 Team Roles
