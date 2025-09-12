@@ -16,10 +16,10 @@ Create a **local** (no cloud) archive search system with AI-powered object detec
 | Name | Role | Responsibilities |
 |-------|------|------------------|
 | **Anil Koiri** | Scrum Master | Oversees sprints, manages backlog, ensures progress |
-| **ML Engineer** | AI Pipeline | Object detection & search pipeline |
-| **Backend Developer** | Server & API | Indexing, database, API endpoints |
+| **Anil koiri** | AI Pipeline | Object detection & search pipeline |
+| **Anil koiri** | Server & API | Indexing, database, API endpoints |
 | **Susan Pandey** | Junior Coder | UI coding, testing, bug fixes |
-| **Frontend Designer** | UI/UX | User interface & design system |
+| **Susan Pandey** | UI/UX | User interface & design system |
 
 ---
 
