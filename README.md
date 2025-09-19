@@ -61,6 +61,5 @@ Create a **local** (no cloud) archive search system with AI-powered object detec
 - Team sets up **local server** & test archive  
 
 ---
-
-## 🔧 Repository Structure (Suggested)  
+ 
 
