@@ -1,4 +1,4 @@
-# Inspiroiva Creative – Archive Search Tool  
+# Inspiroiva Creative
 
 A local search tool for archived videos and images. Designed to handle multiple file formats, apply color correction to gray log profiles, and provide powerful AI-based object and keyword search.  
 
@@ -11,7 +11,7 @@ Create a **local** (no cloud) archive search system with AI-powered object detec
 
 ---
 
-## 🧑‍🤝‍🧑 Team & Roles  
+## Team & Roles  
 
 | Name | Role | Responsibilities |
 |-------|------|------------------|
@@ -23,7 +23,7 @@ Create a **local** (no cloud) archive search system with AI-powered object detec
 
 ---
 
-## 🚀 Core Features  
+##  Core Features  
 
 - **Local processing** (no cloud dependency)  
 - **Object + keyword search** using AI models  
@@ -43,7 +43,7 @@ Create a **local** (no cloud) archive search system with AI-powered object detec
 
 ---
 
-## 📅 High-Level Timeline  
+##  High-Level Timeline  
 
 | Phase | Duration | Key Tasks |
 |-------|----------|-----------|
@@ -54,7 +54,7 @@ Create a **local** (no cloud) archive search system with AI-powered object detec
 
 ---
 
-## 📝 Next Steps  
+##  Next Steps  
 
 - **Anil Koiri** drafts sprint backlog  
 - **Susan Pandey** starts UI prototypes with mentor guidance  
