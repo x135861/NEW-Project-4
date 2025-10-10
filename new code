@@ -1,0 +1,49 @@
+import os, json, torch, faiss, numpy as np, open_clip
+from PIL import Image
+
+device = "cuda" if torch.cuda.is_available() else "cpu"
+
+# Load CLIP model
+model, _, preprocess = open_clip.create_model_and_transforms(
+    'ViT-B-32', pretrained='laion2b_s34b_b79k'
+)
+tokenizer = open_clip.get_tokenizer('ViT-B-32')
+model.to(device).eval()
+
+# Load index and metadata
+index = faiss.read_index("index.faiss")
+with open("meta.json") as f:
+    meta = json.load(f)
+
+def search_text(query, k=5):
+    """Search by text query"""
+    tokens = tokenizer([query]).to(device)
+    with torch.no_grad():
+        feat = model.encode_text(tokens)
+        feat = feat / feat.norm(dim=-1, keepdim=True)
+    feat_np = feat.cpu().numpy().astype('float32')
+    scores, ids = index.search(feat_np, k)
+    return [(meta[i]["path"], float(scores[0][j])) for j, i in enumerate(ids[0])]
+
+def search_image(img_path, k=5):
+    """Search by image similarity"""
+    img = Image.open(img_path).convert("RGB")
+    img_tensor = preprocess(img).unsqueeze(0).to(device)
+    with torch.no_grad():
+        feat = model.encode_image(img_tensor)
+        feat = feat / feat.norm(dim=-1, keepdim=True)
+    feat_np = feat.cpu().numpy().astype('float32')
+    scores, ids = index.search(feat_np, k)
+    return [(meta[i]["path"], float(scores[0][j])) for j, i in enumerate(ids[0])]
+
+# Example usage:
+if __name__ == "__main__":
+    print("\n🔎 Text search: 'a dog on the beach'")
+    results = search_text("a dog on the beach", k=5)
+    for path, score in results:
+        print(f"{path} (score={score:.3f})")
+
+    print("\n🖼️ Image search: query with another image")
+    results = search_image("query.jpg", k=5)
+    for path, score in results:
+        print(f"{path} (score={score:.3f})")

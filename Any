@@ -1,0 +1,42 @@
+import os, json, torch, faiss, numpy as np, open_clip
+from PIL import Image
+from tqdm import tqdm
+
+device = "cuda" if torch.cuda.is_available() else "cpu"
+
+# Load CLIP model & preprocess
+model, _, preprocess = open_clip.create_model_and_transforms(
+    'ViT-B-32', pretrained='laion2b_s34b_b79k'
+)
+tokenizer = open_clip.get_tokenizer('ViT-B-32')
+model.to(device).eval()
+
+# Collect image paths
+image_dir = "images"
+paths = [os.path.join(image_dir, p) for p in os.listdir(image_dir)
+         if p.lower().endswith((".jpg", ".jpeg", ".png"))]
+
+embs = []
+meta = []
+for path in tqdm(paths, desc="Indexing images"):
+    img = Image.open(path).convert("RGB")
+    img_tensor = preprocess(img).unsqueeze(0).to(device)
+    with torch.no_grad():
+        feat = model.encode_image(img_tensor)
+        feat = feat / feat.norm(dim=-1, keepdim=True)
+    embs.append(feat.cpu().numpy())
+    meta.append({"path": path})
+
+embeddings = np.vstack(embs).astype('float32')
+
+# Build FAISS index (inner product = cosine because normalized)
+d = embeddings.shape[1]
+index = faiss.IndexFlatIP(d)
+index.add(embeddings)
+
+# Save index and metadata
+faiss.write_index(index, "index.faiss")
+with open("meta.json","w") as f:
+    json.dump(meta, f)
+
+print(f"Indexed {len(paths)} images.")
