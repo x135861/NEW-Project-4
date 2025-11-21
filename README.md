@@ -27,10 +27,3 @@ The tool allows users to search for objects, scenes, or other attributes (e.g., 
 
 ---
 
-## Installation
-
-1. **Clone the repository**:
-
-```bash
-git clone https://github.com/yourusername/archive-media-search.git
-cd archive-media-search
